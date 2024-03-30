@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -33,12 +32,10 @@ namespace Unity.HLODSystem
         [SerializeField] private string m_albedoPropertyName = "";
         [SerializeField] private string m_normalPropertyName = "";
         [SerializeField] private string m_maskPropertyName = "";
-        
-        [SerializeField]
-        private List<Object> m_generatedObjects = new List<Object>();
-        [SerializeField]
-        private List<GameObject> m_convertedPrefabObjects = new List<GameObject>();
-        
+
+        [SerializeField] private List<Object> m_generatedObjects = new List<Object>();
+        [SerializeField] private List<GameObject> m_convertedPrefabObjects = new List<GameObject>();
+
         public Type SimplifierType
         {
             set { m_SimplifierType = value; }
@@ -53,14 +50,16 @@ namespace Unity.HLODSystem
 
         public TerrainData TerrainData
         {
-            set { m_TerrainData = value;}
+            set { m_TerrainData = value; }
             get { return m_TerrainData; }
         }
+
         public bool DestroyTerrain
         {
             set { m_DestroyTerrain = value; }
             get { return m_DestroyTerrain; }
         }
+
         public float ChunkSize
         {
             get { return m_ChunkSize; }
@@ -84,15 +83,17 @@ namespace Unity.HLODSystem
             get { return m_CullDistance; }
             set { m_CullDistance = value; }
         }
-        
+
         public SerializableDynamicObject SimplifierOptions
         {
             get { return m_SimplifierOptions; }
+            set => m_SimplifierOptions = value;
         }
 
         public SerializableDynamicObject StreamingOptions
         {
-            get { return m_StreamingOptions; }
+            get => m_StreamingOptions;
+            set => m_SimplifierOptions = value;
         }
 
         public int TextureSize
@@ -142,16 +143,17 @@ namespace Unity.HLODSystem
             set { m_maskPropertyName = value; }
             get { return m_maskPropertyName; }
         }
-        
+
         public List<Object> GeneratedObjects
         {
             get { return m_generatedObjects; }
         }
+
         public List<GameObject> ConvertedPrefabObjects
         {
             get { return m_convertedPrefabObjects; }
         }
-        
+
         public void OnBeforeSerialize()
         {
             if (m_SimplifierType != null)
@@ -179,7 +181,6 @@ namespace Unity.HLODSystem
             {
                 m_StreamingType = Type.GetType(m_StreamingTypeStr);
             }
-
         }
 
         public void AddGeneratedResource(Object obj)
@@ -196,13 +197,12 @@ namespace Unity.HLODSystem
         {
             m_convertedPrefabObjects.Add(obj);
         }
-        
+
         public Bounds GetBounds()
         {
-            if ( m_TerrainData == null )
+            if (m_TerrainData == null)
                 return new Bounds();
             return new Bounds(m_TerrainData.size * 0.5f, m_TerrainData.size);
         }
-
     }
 }
